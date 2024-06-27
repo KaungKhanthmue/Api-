@@ -23,7 +23,7 @@ class PostFactory extends Factory
             'description' => $this->faker->paragraph,
             'user_id' => User::factory(),
             'category_id' => Category::factory(),
-            'status' => $this->faker->randomElement(['draft', 'published', 'archived']),
+            'status' => $this->faker->randomElement(['onlyme', 'public', 'friendship']),
         ];
     }
 }

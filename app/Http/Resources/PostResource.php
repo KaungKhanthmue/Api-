@@ -14,15 +14,17 @@ class PostResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        dd($this->postLike);
         return [
             "id" => $this->id,
             "title" => $this->title,
             "description" => $this->description,
-            "user" => $this->user->name,
-            "user_image" => ImageResource::collection($this->user->images),
+            "user" => new UserResource($this->user),
             "category" => $this->category->name,
             "status" => $this->status,
-            "post_image"  => ImageResource::collection($this->images),
+            "image"  => ImageResource::collection($this->images),
+            "time" => $this->created_at->diffForHumans(),
+            "like" => $this->postLike->count(),
         ];
     }
 }

@@ -23,16 +23,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => bcrypt('1111'),
         ]);
-        foreach ($users as $user) {
-            $user->images()->create([
-                "image_type" => "profile",
-                "path" => "userInfo/user.jpg",
-            ]);
-            $user->images()->create([
-                "image_type" => "cover",
-                "path" => "userInfo/cv4.jpg",
-            ]);
-        }
+
         $posts = Post::factory(20)->create();
 
         foreach ($posts as $post){
@@ -49,9 +40,29 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         }
-        
 
+        foreach ($users as $user) {
+            $user->images()->create([
+                "image_type" => "profile",
+                "path" => "userInfo/user.jpg",
+            ]);
+            $user->images()->create([
+                "image_type" => "cover",
+                "path" => "userInfo/cv4.jpg",
+            ]);
 
+            for($a=0;$a<20;$a++){
+                $userOne = User::inRandomOrder()->first();
+                $userTwo = User::whereNot('id',$user->id)->inRandomOrder()->first();
 
+                $userOne->addFriend($userTwo->id);
+
+                $post = Post::inRandomOrder()->first();
+                
+                $post->likePost($userOne->id);
+            }
+
+            
+        }
     }
 }

@@ -18,7 +18,7 @@ class UserResource extends JsonResource
             "id"  => $this->id,
             "name" => $this->name,
             "email" => $this->email,
-            "user_image" => ImageResource::collection($this->images),
+            "user_image" => new ImageResource($this->images->first()),
 
         ];
     }

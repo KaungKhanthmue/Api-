@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Str;
 
 class Post extends BaseModel
 {
+   protected $table = 'posts';
     use HasFactory;
 
     protected $fillable = [
@@ -36,7 +38,7 @@ class Post extends BaseModel
 
      public function postLike(): BelongsToMany
      {
-        return $this->belongsToMany(Post::class,'post_likes','post_id')->withTimestamps();
+        return $this->belongsToMany(Post::class,'post_likes','post_id','user_id')->withTimestamps();
      }
 
      public function postComment(): BelongsToMany
@@ -52,5 +54,12 @@ class Post extends BaseModel
      public function images(): MorphMany
      {
         return $this->morphMany(Image::class,'imageable');
+     }
+
+     public function likePost($userId)
+     {
+         $ulid = (string) Str::ulid();
+ 
+         $this->postLike()->attach($userId, ['id' => $ulid]);
      }
 }

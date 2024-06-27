@@ -19,14 +19,14 @@ class FriendController extends Controller
     }
     public function user_friend($userId)
     {
-        $user_id = [];
-        $your_friends = [];
-        $friends = UserFriend::where('user_id',$userId)->orWhere('your_friend_id',$userId)->get();
+        $userOne = [];
+        $userTwo = [];
+        $friends = UserFriend::where('user_one_id',$userId)->orWhere('user_two_id',$userId)->get();
         foreach($friends as $friend){
-            $user_id[] = $friend->user_id;
-            $your_friends[] = $friend->your_friend_id;
+            $userOne[] = $friend->user_one_id;
+            $userTwo[] = $friend->user_two_id;
         }
-        $user =  User::whereIn('id',$user_id)->orWhere('id',$your_friends)->get();
+        $user =  User::whereIn('id',$userOne)->orWhere('id',$userTwo)->get();
         return  UserResource::collection($user);
     }
 }

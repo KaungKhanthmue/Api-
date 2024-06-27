@@ -12,7 +12,7 @@ class PostLike extends BaseModel
 
     protected $fillable = [
      "post_id",
-     "like_user_id"
+     "user_id"
     ];
 
 
