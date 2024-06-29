@@ -60,6 +60,13 @@ class DatabaseSeeder extends Seeder
                 $post = Post::inRandomOrder()->first();
                 
                 $post->likePost($userOne->id);
+                
+                $post->commentPost($userOne->id, "This is a test comment");
+                // $commetnt = PostComment::create([
+                //     "post_id" => $post->id,
+                //     "user_id" => $userOne->id,
+                //     "comment" => "This is a test comment",
+                // ]);
             }
 
             

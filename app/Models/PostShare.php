@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PostShare extends BaseModel
+class PostShare extends Model
 {
     use HasFactory;
 

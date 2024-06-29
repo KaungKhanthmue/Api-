@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
-    use HasFactory,HasApiTokens, Notifiable,HasUlids;
+    use HasFactory,HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -74,9 +74,8 @@ class User extends Authenticatable
 
      public function addFriend($friendId)
      {
-         $ulid = (string) Str::ulid();
  
-         $this->friendRequest()->attach($friendId, ['id' => $ulid]);
+         $this->friendRequest()->attach($friendId);
      }
 
      public function postLike(): BelongsToMany
@@ -84,9 +83,9 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class,'post_likes','user_id')->withTimestamps();
      }
 
-     public function postComment(): BelongsToMany
+     public function postComment(): HasMany
      {
-        return $this->belongsToMany(User::class,'post_comments','user_id')->withTimestamps();
+        return $this->hasMany(PostComment::class);
      }
 
      public function postShare(): BelongsToMany

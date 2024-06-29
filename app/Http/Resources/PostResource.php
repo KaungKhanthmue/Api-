@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\PostLike;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,7 +15,6 @@ class PostResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        dd($this->postLike);
         return [
             "id" => $this->id,
             "title" => $this->title,
@@ -22,9 +22,10 @@ class PostResource extends JsonResource
             "user" => new UserResource($this->user),
             "category" => $this->category->name,
             "status" => $this->status,
-            "image"  => ImageResource::collection($this->images),
             "time" => $this->created_at->diffForHumans(),
-            "like" => $this->postLike->count(),
+            "likeCount" => $this->postLike()->count(),
+            "commentCount" => $this->postComment()->count(),
+            "image"  => ImageResource::collection($this->images),
         ];
     }
 }

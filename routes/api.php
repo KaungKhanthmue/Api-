@@ -22,3 +22,4 @@ Route::get('user-list',[UserController::class,'index']);
 Route::post('user-create',[UserController::class,'create']);
 
 Route::get('post-list',[PostController::class,'index']);
+Route::post('post-create',[PostController::class,'create']);
