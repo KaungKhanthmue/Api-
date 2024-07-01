@@ -11,8 +11,14 @@ class UserController extends Controller
 {
     public function index()
     {
-        $user = User::query()->with('images')->get();
+        $user = User::query()->with('images')->paginate(10);
         return UserResource::collection($user);
+    }
+
+    public function authUser()
+    {
+        $user = User::findOrFail(auth()->user()->id);
+        return new UserResource($user);
     }
 
     public function create(Request $request)

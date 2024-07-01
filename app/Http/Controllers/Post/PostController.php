@@ -13,7 +13,8 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::query()->with('user','user.images','category','images','postLike','postComment')->get();
+         
+        $posts = Post::query()->with('user','user.images','category','images','postLike','postComment')->paginate(10);
 
         return PostResource::collection($posts);
     }

@@ -13,7 +13,7 @@ Route::get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function(){
 
-
+    Route::get('auth-user',[UserController::class,'authUser']);
 });
 Route::post('login',[AuthController::class,'login']);
 Route::post('register',[AuthController::class,'register']);
@@ -22,6 +22,7 @@ Route::get('friend_add/{yourFriendId}',[FriendController::class,'friend_add']);
 Route::get('user-friend/{userId}',[FriendController::class,'user_friend']);
 
 Route::get('user-list',[UserController::class,'index']);
+
 Route::post('user-create',[UserController::class,'create']);
 
 Route::get('post-list',[PostController::class,'index']);
